@@ -4,6 +4,7 @@ from app import app
 from config import *
 from code.stuff import anotherThingToDo
 from Python_OMR.prototype2 import processLine
+import music_generation.PySynth.pysynth as pysynth
 
 
 def allowed_file(filename):
@@ -27,11 +28,11 @@ def index():
 
 
             #outgoing = aThingToDo(os.path.join(basedir,app.config['UPLOAD_FOLDER'], filename))
-            test = processLine(os.path.join(basedir,app.config['UPLOAD_FOLDER'], filename),True)
+            tuple = processLine(os.path.join(basedir,app.config['UPLOAD_FOLDER'], filename),True)
 
-            outputName = "testOutput.txt"
+            outputName = "testOutput.wav"
             outputPath = os.path.join(basedir,app.config['UPLOAD_FOLDER'], outputName)
-            outputFile = anotherThingToDo(os.path.join(basedir,app.config['UPLOAD_FOLDER'], filename),outputPath,test)
+            outputFile = pysynth.make_wav(tuple,bpm = 200,fn = outputPath)
             #return render_template("result.html", outgoing = outgoing, outputPath = outputPath,
             #                       downloadLink = url_for('download',output = outputPath))
             return redirect(url_for('download',output = outputPath))

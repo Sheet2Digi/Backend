@@ -18,7 +18,7 @@ def processLine(fileName, autoFlag):
     cv2.resizeWindow("sliders3", 1000, 50)
 
     cv2.createTrackbar('Horizontal Threshold','sliders',5,100,nothing)
-    cv2.createTrackbar('Vertical Threshold','sliders',105,200,nothing)
+    cv2.createTrackbar('Vertical Threshold','sliders',10,200,nothing)
 
     cv2.createTrackbar('a','sliders',90,100,nothing)
     cv2.createTrackbar('b','sliders',80,500,nothing)
@@ -205,6 +205,7 @@ def processLine(fileName, autoFlag):
         multiplier = ((h-2.75)*1000)/(avgDist)
         if roughGuess is False:
             cv2.setTrackbarPos('Picture Scale', 'sliders2', int(round((multiplier*picScale),0)))
+            cv2.setTrackbarPos('Vertical Threshold','sliders',int(round(100,0)))
             roughGuess = True
             scaleChanged = True
         else:
@@ -274,6 +275,7 @@ def processLine(fileName, autoFlag):
                         contProc = False
                         notes.append(noteResult)
 
+        notes.append("c2")
         # Display the resulting frame
         cv2.imshow('frame',frame)
         cv2.imshow('frame2',template)
